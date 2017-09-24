@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "b8995447518fd57af14c88a47f27434a16f60403",
+          "version": "4.5.1"
+        }
+      },
+      {
+        "package": "Moya",
+        "repositoryURL": "https://github.com/Moya/Moya.git",
+        "state": {
+          "branch": "10.0.0-dev",
+          "revision": "4382d73610cacc35f2330a0cdb91180d29e16b51",
+          "version": null
+        }
+      },
+      {
+        "package": "ReactiveSwift",
+        "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "b9d5b350a446b85704396ce332a1f9e4960cfc6b",
+          "version": "2.0.1"
+        }
+      },
+      {
+        "package": "Result",
+        "repositoryURL": "https://github.com/antitypical/Result.git",
+        "state": {
+          "branch": null,
+          "revision": "c8446185238659a2b27c0261f64ff1254291d07d",
+          "version": "3.2.3"
+        }
+      },
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": "rxswift4.0-swift4.0",
+          "revision": "8718c90d7cc9592c9663489e488e595e4feac882",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

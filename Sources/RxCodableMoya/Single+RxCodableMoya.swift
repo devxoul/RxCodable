@@ -1,7 +1,10 @@
 import Foundation
 import Moya
-import RxCodable
 import RxSwift
+
+#if !COCOAPODS
+import RxCodable
+#endif
 
 public extension PrimitiveSequenceType where TraitType == SingleTrait, ElementType == Moya.Response {
   public func map<T>(

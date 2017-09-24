@@ -20,9 +20,9 @@ Single<Data>.just(jsonData).map(User.self)
 Maybe<Data>.just(jsonData).map(User.self)
 
 // String -> User
-Observable<Data>.just(jsonString).map(User.self)
-Single<Data>.just(jsonString).map(User.self)
-Maybe<Data>.just(jsonString).map(User.self)
+Observable<String>.just(jsonString).map(User.self)
+Single<String>.just(jsonString).map(User.self)
+Maybe<String>.just(jsonString).map(User.self)
 ```
 
 ## Dependencies

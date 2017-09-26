@@ -7,13 +7,9 @@ import RxCodable
 #endif
 
 public extension PrimitiveSequenceType where TraitType == SingleTrait, ElementType == Moya.Response {
-  public func map<T>(
-    _ type: T.Type,
-    dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .base64,
-    dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate
-  ) -> PrimitiveSequence<TraitType, T> where T: Decodable {
+  public func map<T>(_ type: T.Type, using decoder: JSONDecoder? = nil) -> PrimitiveSequence<TraitType, T> where T: Decodable {
     return self
       .map { response in response.data }
-      .map(type, dataDecodingStrategy: dataDecodingStrategy, dateDecodingStrategy: dateDecodingStrategy)
+      .map(type, using: decoder)
   }
 }

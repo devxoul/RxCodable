@@ -20,10 +20,4 @@ Pod::Spec.new do |s|
     ss.frameworks   = "Foundation"
     ss.dependency "RxSwift", ">= 4.0.0-beta.0"
   end
-
-  s.subspec "Moya" do |ss|
-    ss.source_files = "Sources/RxCodableMoya/**/*.swift"
-    ss.dependency "RxCodable/Core"
-    ss.dependency "Moya"
-  end
 end

@@ -28,7 +28,6 @@ Maybe<String>.just(jsonString).map(User.self)
 ## Dependencies
 
 * [RxSwift](https://github.com/ReactiveX/RxSwift) >= 4.0.0-beta.0
-* [Moya](https://github.com/Moya/Moya) >= 10.0.0-dev
 
 ## Installation
 
@@ -36,7 +35,6 @@ Maybe<String>.just(jsonString).map(User.self)
 
     ```ruby
     pod 'RxCodable'
-    pod 'RxCodable/Moya'
     ```
 
 ## Contributing

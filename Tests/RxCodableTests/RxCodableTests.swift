@@ -76,4 +76,58 @@ class RxCodableTests: XCTestCase {
     XCTAssertEqual(try Single.just(jsonString).map([User].self).toBlocking().first()!, users)
     XCTAssertEqual(try Maybe.just(jsonString).map([User].self).toBlocking().first()!, users)
   }
+  
+  func testMapCodableFromDictionary() {
+    let dictionary:[String:Any] = [
+      "id": 123,
+      "name": "iamchiwon",
+    ]
+    let user = User(id: 123, name: "iamchiwon")
+    XCTAssertEqual(try Observable.just(dictionary).map(User.self).toBlocking().first()!, user)
+    XCTAssertEqual(try Single.just(dictionary).map(User.self).toBlocking().first()!, user)
+    XCTAssertEqual(try Maybe.just(dictionary).map(User.self).toBlocking().first()!, user)
+  }
+  
+  func testMapCodableToDictionary() {
+    let dictionary:[String:Any] = [
+      "id": 123,
+      "name": "iamchiwon",
+      ]
+    let user = User(id: 123, name: "iamchiwon")
+    XCTAssertEqual(try Observable.just(user).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
+    XCTAssertEqual(try Single.just(user).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
+    XCTAssertEqual(try Maybe.just(user).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
+  }
+  
+  func testMapCodableToJSONString() {
+    let jsonString = """
+    {
+      "id": 123,
+      "name": "iamchiwon"
+    }
+    """
+    let user = User(id: 123, name: "iamchiwon")
+    XCTAssertEqual(try Observable.just(user).toJSONString().toBlocking().first()!,
+                   try Observable.just(jsonString).map(User.self).toJSONString().toBlocking().first()!)
+    XCTAssertEqual(try Single.just(user).toJSONString().toBlocking().first()!,
+                   try Single.just(jsonString).map(User.self).toJSONString().toBlocking().first()!)
+    XCTAssertEqual(try Maybe.just(user).toJSONString().toBlocking().first()!,
+                   try Maybe.just(jsonString).map(User.self).toJSONString().toBlocking().first()!)
+  }
+  
+  func testMapCodableFromJSONStringToDictionary() {
+    let jsonString = """
+    {
+      "id": 123,
+      "name": "iamchiwon"
+    }
+    """
+    let dictionary:[String:Any] = [
+      "id": 123,
+      "name": "iamchiwon",
+      ]
+    XCTAssertEqual(try Observable.just(jsonString).map(User.self).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
+    XCTAssertEqual(try Single.just(jsonString).map(User.self).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
+    XCTAssertEqual(try Maybe.just(jsonString).map(User.self).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
+  }
 }

@@ -18,3 +18,11 @@ public extension PrimitiveSequenceType where TraitType == MaybeTrait, ElementTyp
   }
 }
 
+public extension PrimitiveSequenceType where TraitType == MaybeTrait, ElementType == [String: Any] {
+  public func map<T>(_ type: T.Type, using decoder: JSONDecoder? = nil) -> PrimitiveSequence<TraitType, T> where T: Decodable {
+    return self
+      .map { dict in try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) }
+      .map(type, using: decoder)
+  }
+}
+

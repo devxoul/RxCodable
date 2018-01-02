@@ -17,3 +17,11 @@ public extension ObservableType where E == String {
       .map(type, using: decoder)
   }
 }
+
+public extension ObservableType where E == [String: Any] {
+  public func map<T>(_ type: T.Type, using decoder: JSONDecoder? = nil) -> Observable<T> where T: Decodable {
+    return self
+      .map { dict in try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) }
+      .map(type, using: decoder)
+  }
+}

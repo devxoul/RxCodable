@@ -76,4 +76,15 @@ class RxCodableTests: XCTestCase {
     XCTAssertEqual(try Single.just(jsonString).map([User].self).toBlocking().first()!, users)
     XCTAssertEqual(try Maybe.just(jsonString).map([User].self).toBlocking().first()!, users)
   }
+  
+  func testMapCodableFromDictionary() {
+    let dictionary:[String:Any] = [
+      "id":123,
+      "name":"iamchiwon",
+    ]
+    let user = User(id: 123, name: "iamchiwon")
+    XCTAssertEqual(try Observable.just(dictionary).map(User.self).toBlocking().first()!, user)
+    XCTAssertEqual(try Single.just(dictionary).map(User.self).toBlocking().first()!, user)
+    XCTAssertEqual(try Maybe.just(dictionary).map(User.self).toBlocking().first()!, user)
+  }
 }

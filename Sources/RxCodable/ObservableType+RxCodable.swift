@@ -21,7 +21,27 @@ public extension ObservableType where E == String {
 public extension ObservableType where E == [String: Any] {
   public func map<T>(_ type: T.Type, using decoder: JSONDecoder? = nil) -> Observable<T> where T: Decodable {
     return self
-      .map { dict in try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) }
+      .map { dict in try JSONSerialization.data(withJSONObject: dict) }
       .map(type, using: decoder)
+  }
+}
+
+public extension ObservableType where E: Encodable {
+  public func toDictionary() -> Observable<[String:Any]> {
+    return self.map { encodable -> [String: Any] in
+      let data = try JSONEncoder().encode(encodable)
+      let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+      return dictionary ?? [:]
+    }
+  }
+}
+
+public extension ObservableType where E: Encodable {
+  public func toJSONString(_ encoding: String.Encoding = .utf8) -> Observable<String> {
+    return self.map { encodable -> String in
+      let data = try JSONEncoder().encode(encodable)
+      let json = String(data: data, encoding: encoding)
+      return json ?? "{}"
+    }
   }
 }

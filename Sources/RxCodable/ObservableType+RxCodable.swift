@@ -38,7 +38,7 @@ public extension ObservableType where E: Encodable {
 }
 
 public extension ObservableType where E: Encodable {
-  public func toJSONString(_ encoding: String.Encoding = .utf8, using encoder: JSONEncoder? = nil) -> Observable<String> {
+  public func toJSONString(_ encoder: JSONEncoder? = nil, encoding: String.Encoding = .utf8) -> Observable<String> {
     return self.map { encodable -> String in
       let data = try (encoder ?? JSONEncoder()).encode(encodable)
       let json = String(data: data, encoding: encoding)

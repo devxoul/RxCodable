@@ -27,19 +27,20 @@ public extension PrimitiveSequenceType where TraitType == SingleTrait, ElementTy
 }
 
 public extension PrimitiveSequenceType where TraitType == SingleTrait, ElementType: Encodable {
-  public func toDictionary() -> PrimitiveSequence<TraitType, [String:Any]> {
+  public func toDictionary(_ encoder: JSONEncoder? = nil) -> PrimitiveSequence<TraitType, [String: Any]> {
     return self.map { encodable -> [String: Any] in
-      let data = try JSONEncoder().encode(encodable)
-      let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-      return dictionary ?? [:]
+      let data = try (encoder ?? JSONEncoder()).encode(encodable)
+      let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+      guard let dictionary = dict else { throw RxError.noElements }
+      return dictionary
     }
   }
 }
 
 public extension PrimitiveSequenceType where TraitType == SingleTrait, ElementType: Encodable {
-  public func toJSONString(_ encoding: String.Encoding = .utf8) -> PrimitiveSequence<TraitType, String> {
+  public func toJSONString(_ encoding: String.Encoding = .utf8, using encoder: JSONEncoder? = nil) -> PrimitiveSequence<TraitType, String> {
     return self.map { encodable -> String in
-      let data = try JSONEncoder().encode(encodable)
+      let data = try (encoder ?? JSONEncoder()).encode(encodable)
       let json = String(data: data, encoding: encoding)
       return json ?? "{}"
     }

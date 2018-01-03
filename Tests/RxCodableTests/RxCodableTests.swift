@@ -92,7 +92,7 @@ class RxCodableTests: XCTestCase {
     let dictionary:[String:Any] = [
       "id": 123,
       "name": "iamchiwon",
-      ]
+    ]
     let user = User(id: 123, name: "iamchiwon")
     XCTAssertEqual(try Observable.just(user).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
     XCTAssertEqual(try Single.just(user).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
@@ -115,6 +115,31 @@ class RxCodableTests: XCTestCase {
                    try Maybe.just(jsonString).map(User.self).toJSONString().toBlocking().first()!)
   }
   
+  func testMapCodableArrayToJSONString() {
+    let jsonString = """
+    [
+      {
+        "id": 123,
+        "name": "iamchiwon"
+      },
+      {
+        "id": 456,
+        "name": "devxoul"
+      }
+    ]
+    """
+    let users = [
+      User(id: 123, name: "iamchiwon"),
+      User(id: 456, name: "devxoul"),
+    ]
+    XCTAssertEqual(try Observable.just(users).toJSONString().toBlocking().first()!,
+                   try Observable.just(jsonString).map([User].self).toJSONString().toBlocking().first()!)
+    XCTAssertEqual(try Single.just(users).toJSONString().toBlocking().first()!,
+                   try Single.just(jsonString).map([User].self).toJSONString().toBlocking().first()!)
+    XCTAssertEqual(try Maybe.just(users).toJSONString().toBlocking().first()!,
+                   try Maybe.just(jsonString).map([User].self).toJSONString().toBlocking().first()!)
+  }
+  
   func testMapCodableFromJSONStringToDictionary() {
     let jsonString = """
     {
@@ -125,7 +150,7 @@ class RxCodableTests: XCTestCase {
     let dictionary:[String:Any] = [
       "id": 123,
       "name": "iamchiwon",
-      ]
+    ]
     XCTAssertEqual(try Observable.just(jsonString).map(User.self).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
     XCTAssertEqual(try Single.just(jsonString).map(User.self).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)
     XCTAssertEqual(try Maybe.just(jsonString).map(User.self).toDictionary().toBlocking().first()! as NSObject, dictionary as NSObject)

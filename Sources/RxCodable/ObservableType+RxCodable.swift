@@ -27,21 +27,23 @@ public extension ObservableType where E == [String: Any] {
 }
 
 public extension ObservableType where E: Encodable {
-  public func toDictionary() -> Observable<[String:Any]> {
+  public func toDictionary(_ encoder: JSONEncoder? = nil) -> Observable<[String: Any]> {
     return self.map { encodable -> [String: Any] in
-      let data = try JSONEncoder().encode(encodable)
-      let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-      return dictionary ?? [:]
+      let data = try (encoder ?? JSONEncoder()).encode(encodable)
+      let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+      guard let dictionary = dict else { throw RxError.noElements }
+      return dictionary
     }
   }
 }
 
 public extension ObservableType where E: Encodable {
-  public func toJSONString(_ encoding: String.Encoding = .utf8) -> Observable<String> {
+  public func toJSONString(_ encoding: String.Encoding = .utf8, using encoder: JSONEncoder? = nil) -> Observable<String> {
     return self.map { encodable -> String in
-      let data = try JSONEncoder().encode(encodable)
+      let data = try (encoder ?? JSONEncoder()).encode(encodable)
       let json = String(data: data, encoding: encoding)
       return json ?? "{}"
     }
   }
 }
+

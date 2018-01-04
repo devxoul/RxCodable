@@ -26,23 +26,37 @@ public extension ObservableType where E == [String: Any] {
   }
 }
 
+public extension ObservableType where E == [[String: Any]] {
+  public func map<T>(_ type: Array<T>.Type, using decoder: JSONDecoder? = nil) -> Observable<[T]> where T: Decodable {
+    return self
+      .flatMap { Observable.from($0) }
+      .map(T.self, using: decoder)
+      .toArray()
+  }
+}
+
 public extension ObservableType where E: Encodable {
-  public func toDictionary(_ encoder: JSONEncoder? = nil) -> Observable<[String: Any]> {
+  public func mapDictionary(_ encoder: JSONEncoder? = nil) -> Observable<[String: Any]> {
     return self.map { encodable -> [String: Any] in
       let data = try (encoder ?? JSONEncoder()).encode(encodable)
       let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-      guard let dictionary = dict else { throw RxError.noElements }
+      guard let dictionary = dict else {
+        throw RxCodableError.castingFailed(data: data, type: [String: Any].self)
+      }
       return dictionary
     }
   }
 }
 
 public extension ObservableType where E: Encodable {
-  public func toJSONString(_ encoder: JSONEncoder? = nil, encoding: String.Encoding = .utf8) -> Observable<String> {
+  public func mapJSONString(_ encoder: JSONEncoder? = nil, encoding: String.Encoding = .utf8) -> Observable<String> {
     return self.map { encodable -> String in
       let data = try (encoder ?? JSONEncoder()).encode(encodable)
       let json = String(data: data, encoding: encoding)
-      return json ?? "{}"
+      guard let jsonString = json else {
+        throw RxCodableError.castingFailed(data: data, type: String.self)
+      }
+      return jsonString
     }
   }
 }

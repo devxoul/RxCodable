@@ -1,6 +1,6 @@
 # RxCodable
 
-![Swift](https://img.shields.io/badge/Swift-4.0-orange.svg)
+![Swift](https://img.shields.io/badge/Swift-4.2-orange.svg)
 [![CocoaPods](http://img.shields.io/cocoapods/v/RxCodable.svg)](https://cocoapods.org/pods/RxCodable)
 [![Build Status](https://travis-ci.org/devxoul/RxCodable.svg?branch=master)](https://travis-ci.org/devxoul/RxCodable)
 [![codecov](https://img.shields.io/codecov/c/github/devxoul/RxCodable.svg)](https://codecov.io/gh/devxoul/RxCodable)
@@ -27,7 +27,7 @@ Maybe<String>.just(jsonString).map(User.self)
 
 ## Dependencies
 
-* [RxSwift](https://github.com/ReactiveX/RxSwift) >= 4.0.0-beta.0
+* [RxSwift](https://github.com/ReactiveX/RxSwift) >= 4.0
 
 ## Installation
 

@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   s.subspec "Core" do |ss|
     ss.source_files = "Sources/RxCodable/**/*.swift"
     ss.frameworks   = "Foundation"
-    ss.dependency "RxSwift", ">= 4.0.0-beta.0"
+    ss.dependency "RxSwift", ">= 4.0"
   end
 end

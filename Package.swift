@@ -1,9 +1,12 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.0
 
 import PackageDescription
 
 let package = Package(
   name: "RxCodable",
+  platforms: [
+    .macOS(.v10_11), .iOS(.v8), .tvOS(.v9), .watchOS(.v2)
+  ],
   products: [
     .library(name: "RxCodable", targets: ["RxCodable"]),
   ],

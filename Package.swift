@@ -1,14 +1,17 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.0
 
 import PackageDescription
 
 let package = Package(
   name: "RxCodable",
+  platforms: [
+    .macOS(.v10_11), .iOS(.v8), .tvOS(.v9), .watchOS(.v3)
+  ],
   products: [
     .library(name: "RxCodable", targets: ["RxCodable"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "4.0.0-rc.0")),
+    .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
   ],
   targets: [
     .target(name: "RxCodable", dependencies: ["RxSwift"]),

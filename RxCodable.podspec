@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "RxCodable"
-  s.version          = "0.4.0"
+  s.version          = "1.0.0"
   s.summary          = "RxSwift wrapper for Codable"
   s.homepage         = "https://github.com/devxoul/RxCodable"
   s.license          = { :type => "MIT", :file => "LICENSE" }
